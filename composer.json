@@ -1,0 +1,22 @@
+{
+    "name": "pyncer/session",
+    "type": "library",
+    "description": "Pyncer library for handling sessions.",
+    "homepage": "https://pyncer.com/session",
+    "license": "Unlicense",
+    "require": {
+        "php": ">=8.1",
+        "pyncer/exception": "^1.0",
+        "pyncer/http": "*",
+        "pyncer/utility": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pyncer\\Session\\": "src/"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/pyncerrc/pyncer-session/issues",
+        "source": "https://github.com/pyncerrc/pyncer-session"
+    }
+}

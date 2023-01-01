@@ -1,18 +1,21 @@
 <?php
 namespace Pyncer\Session;
 
-use Pyncer\Exception\UnexpectedValueException;
 use Pyncer\Exception\RuntimeException;
 use Pyncer\Session\AbstractSession;
 
 use function count;
 use function session_destroy;
+use function session_id;
+use function session_regenerate_id;
 use function session_start;
+use function session_status;
 use function session_write_close;
-use function strlen;
-use function strpos;
-use function substr;
+use function time;
 
+/**
+ * A standard php session implementation.
+ */
 class PhpSession extends AbstractSession
 {
     private ?string $name;
@@ -21,6 +24,14 @@ class PhpSession extends AbstractSession
     private ?int $idExpirationInterval;
     private ?int $currentIdExpirationInterval;
 
+    /**
+     * Constructs a PhpSesson
+     *
+     * @param null|string $name Name of the session.
+     * @param array $options Array of session configuration directives.
+     * @param null|int $idExpirationInterval How often the session id should
+     *      be regenerated in seconds.
+     */
     public function __construct(
         ?string $name = null,
         array $options = [],
@@ -33,10 +44,24 @@ class PhpSession extends AbstractSession
         $this->currentIdExpirationInterval = null;
     }
 
+    /**
+     * Gets the session name.
+     *
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name ?? session_name();
     }
+
+    /**
+     * Sets the session name.
+     *
+     * @param null|string $value New session name.
+     * @return static
+     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     *      already started.
+     */
     public function setName(?string $value): static
     {
         if ($this->hasStarted()) {
@@ -48,10 +73,25 @@ class PhpSession extends AbstractSession
         return $this;
     }
 
+    /**
+     * Gets the session id.
+     *
+     * @return null|string
+     */
     public function getId(): ?string
     {
         return $this->id;
     }
+
+    /**
+     * Sets the session id to load. If no session id is set, a new one will
+     * be created.
+     *
+     * @param null|string $value The session id.
+     * @return static
+     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     *      already started.
+     */
     public function setId(?string $value): static
     {
         if ($this->hasStarted()) {
@@ -63,10 +103,25 @@ class PhpSession extends AbstractSession
         return $this;
     }
 
+    /**
+     * Gets the session id expiration interval in seconds.
+     *
+     * @return null|int
+     */
     public function getIdExpirationInterval(): ?int
     {
         return $this->idExpirationInterval;
     }
+
+    /**
+     * Sets the session id expiration interval in seconds. Set to null to
+     * never regenerate the session id.
+     *
+     * @param null|int $value Expiration interval in seconds.
+     * @return static
+     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     *      already started.
+     */
     public function setIdExpirationInterval(?int $value): static
     {
         if ($this->hasStarted()) {
@@ -78,10 +133,26 @@ class PhpSession extends AbstractSession
         return $this;
     }
 
+    /**
+     * Gets an array of session configuration directives.
+     *
+     * @link https://www.php.net/manual/en/session.configuration.php
+     * @return array
+     */
     public function getOptions(): array
     {
         return $this->options;
     }
+
+    /**
+     * Sets an array of session configuration directives.
+     *
+     * @link https://www.php.net/manual/en/session.configuration.php
+     * @param array $value Array of session configuration directives.
+     * @return static
+     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     *      already started.
+     */
     public function setOptions(array $value): static
     {
         if ($this->hasStarted()) {
@@ -93,6 +164,9 @@ class PhpSession extends AbstractSession
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function start(): static
     {
         if (session_status() === PHP_SESSION_DISABLED) {
@@ -148,6 +222,9 @@ class PhpSession extends AbstractSession
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function commit(): static
     {
         if (!$this->hasStarted()) {
@@ -181,6 +258,9 @@ class PhpSession extends AbstractSession
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function destroy(): static
     {
         if (session_status() !== PHP_SESSION_ACTIVE ||

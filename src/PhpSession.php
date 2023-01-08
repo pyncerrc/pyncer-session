@@ -25,8 +25,6 @@ class PhpSession extends AbstractSession
     private ?int $currentIdExpirationInterval;
 
     /**
-     * Constructs a PhpSesson
-     *
      * @param null|string $name Name of the session.
      * @param array $options Array of session configuration directives.
      * @param null|int $idExpirationInterval How often the session id should

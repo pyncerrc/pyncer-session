@@ -14,7 +14,12 @@ use Pyncer\Utility\Token;
  */
 abstract class AbstractSession implements SessionInterface
 {
+
+    /**
+     * Array of \Pyncer\Utility\ParamsInterface to store session data.
+     */
     protected array $values = [];
+
     private bool $hasStarted = false;
     private ?Token $csrfToken = null;
 

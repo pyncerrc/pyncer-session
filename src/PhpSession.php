@@ -57,7 +57,7 @@ class PhpSession extends AbstractSession
      *
      * @param null|string $value New session name.
      * @return static
-     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     * @throws \Pyncer\Exception\RuntimeException When the session has
      *      already started.
      */
     public function setName(?string $value): static
@@ -87,7 +87,7 @@ class PhpSession extends AbstractSession
      *
      * @param null|string $value The session id.
      * @return static
-     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     * @throws \Pyncer\Exception\RuntimeException When the session has
      *      already started.
      */
     public function setId(?string $value): static
@@ -117,7 +117,7 @@ class PhpSession extends AbstractSession
      *
      * @param null|int $value Expiration interval in seconds.
      * @return static
-     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     * @throws \Pyncer\Exception\RuntimeException When the session has
      *      already started.
      */
     public function setIdExpirationInterval(?int $value): static
@@ -148,7 +148,7 @@ class PhpSession extends AbstractSession
      * @link https://www.php.net/manual/en/session.configuration.php
      * @param array $value Array of session configuration directives.
      * @return static
-     * @throws \Pyncer\Exceptions\RuntimeException When the session has
+     * @throws \Pyncer\Exception\RuntimeException When the session has
      *      already started.
      */
     public function setOptions(array $value): static
@@ -163,7 +163,7 @@ class PhpSession extends AbstractSession
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function start(): static
     {
@@ -221,7 +221,7 @@ class PhpSession extends AbstractSession
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function commit(): static
     {
@@ -257,7 +257,7 @@ class PhpSession extends AbstractSession
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function destroy(): static
     {

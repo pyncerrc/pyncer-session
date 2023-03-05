@@ -18,5 +18,10 @@
     "support": {
         "issues": "https://github.com/pyncerrc/pyncer-session/issues",
         "source": "https://github.com/pyncerrc/pyncer-session"
+    },
+    "extra" : {
+        "branch-alias" : {
+            "dev-main" : "1.0-dev"
+        }
     }
 }

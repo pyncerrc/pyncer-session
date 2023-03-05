@@ -24,7 +24,7 @@ abstract class AbstractSession implements SessionInterface
     private ?Token $csrfToken = null;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function hasStarted(): bool
     {
@@ -44,7 +44,7 @@ abstract class AbstractSession implements SessionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function clear(): static
     {
@@ -57,7 +57,7 @@ abstract class AbstractSession implements SessionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function get(string $name): ParamsInterface
     {
@@ -69,7 +69,7 @@ abstract class AbstractSession implements SessionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function set(string $name, array $values): static
     {
@@ -79,7 +79,7 @@ abstract class AbstractSession implements SessionInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getCsrfToken(): Token
     {
